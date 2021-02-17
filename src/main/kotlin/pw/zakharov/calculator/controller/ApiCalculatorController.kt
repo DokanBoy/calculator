@@ -22,13 +22,17 @@ class ApiCalculatorController(
         return mathService.evaluateDouble(calculationRequest.expression, calculationRequest.username)
     }
 
-    @Throws(IllegalArgumentException::class)
+    @GetMapping("/api/evaluates/{username}")
+    fun evaluatesForUser(@PathVariable username: String): List<CalculationHistory> {
+        return historyService.findCalculationHistoryByUsername(username)
+    }
+
     @GetMapping("/api/evaluates")
     fun lastEvaluates(
         @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") start: Date,
-        @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") end: Date
+        @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") end: Date,
     ): List<CalculationHistory> {
-        return historyService.findCalculationHistory(start, end)
+        return historyService.findCalculationHistoryBetweenDates(start, end)
     }
 
     @ExceptionHandler(IllegalArgumentException::class)

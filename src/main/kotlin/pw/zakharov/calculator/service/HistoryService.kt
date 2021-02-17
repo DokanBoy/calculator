@@ -1,27 +1,20 @@
 package pw.zakharov.calculator.service
 
-import org.springframework.stereotype.Service
 import pw.zakharov.calculator.model.CalculationHistory
 import pw.zakharov.calculator.model.User
-import pw.zakharov.calculator.repository.HistoryRepository
 import java.util.*
 
-@Service
-class HistoryService(private val historyRepository: HistoryRepository) {
+interface HistoryService {
 
     fun saveCalculationHistory(
         expression: String,
         user: User,
         evaluateException: Exception?,
         result: Double?
-    ): CalculationHistory {
-        return historyRepository.save(
-            CalculationHistory(null, user, expression, evaluateException?.message, result, Date())
-        )
-    }
+    ): CalculationHistory
 
-    fun findCalculationHistory(start: Date, end: Date): List<CalculationHistory> {
-        return historyRepository.findAllByDateBetween(start, end)
-    }
+    fun findCalculationHistoryBetweenDates(start: Date, end: Date): List<CalculationHistory>
+
+    fun findCalculationHistoryByUsername(username: String): List<CalculationHistory>
 
 }
