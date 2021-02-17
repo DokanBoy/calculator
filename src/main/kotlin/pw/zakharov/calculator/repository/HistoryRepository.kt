@@ -1,12 +1,12 @@
 package pw.zakharov.calculator.repository
 
+import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
-import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.query.Param
 import pw.zakharov.calculator.model.CalculationHistory
 import java.util.*
 
-interface HistoryRepository : CrudRepository<CalculationHistory, Long> {
+interface HistoryRepository : JpaRepository<CalculationHistory, Long> {
 
     fun findAllByDateBetween(start: Date, end: Date): List<CalculationHistory>
 

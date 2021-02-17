@@ -27,12 +27,17 @@ class ApiCalculatorController(
         return historyService.findCalculationHistoryByUsername(username)
     }
 
-    @GetMapping("/api/evaluates")
+    @GetMapping("/api/evaluates/date")
     fun lastEvaluates(
         @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") start: Date,
         @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") end: Date,
     ): List<CalculationHistory> {
         return historyService.findCalculationHistoryBetweenDates(start, end)
+    }
+
+    @GetMapping("/api/evaluates")
+    fun lastEvaluates(@RequestParam page: Int, @RequestParam size: Int): List<CalculationHistory> {
+        return historyService.findAll(page, size).toList()
     }
 
     @ExceptionHandler(IllegalArgumentException::class)
