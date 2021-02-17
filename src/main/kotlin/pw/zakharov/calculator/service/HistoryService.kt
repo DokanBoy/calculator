@@ -20,4 +20,6 @@ interface HistoryService {
 
     fun findAll(page: Int, size: Int): Page<CalculationHistory>
 
+    fun findSimilar(pattern: String): List<CalculationHistory>
+
 }

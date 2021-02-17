@@ -35,4 +35,8 @@ class SimpleHistoryService(private val historyRepository: HistoryRepository) : H
         return historyRepository.findAll(PageRequest.of(page, size))
     }
 
+    override fun findSimilar(pattern: String): List<CalculationHistory> {
+        return historyRepository.findAllByExpressionLike(pattern);
+    }
+
 }

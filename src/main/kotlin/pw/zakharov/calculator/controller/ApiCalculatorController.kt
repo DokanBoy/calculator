@@ -40,6 +40,11 @@ class ApiCalculatorController(
         return historyService.findAll(page, size).toList()
     }
 
+    @GetMapping("/api/evaluates/similar")
+    fun similarEvaluates(@RequestParam pattern: String): List<CalculationHistory> {
+        return historyService.findSimilar(pattern)
+    }
+
     @ExceptionHandler(IllegalArgumentException::class)
     fun handleException(e: IllegalArgumentException): ResponseEntity<String>? {
         return ResponseEntity(e.message, HttpStatus.BAD_REQUEST)

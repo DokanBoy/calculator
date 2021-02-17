@@ -13,4 +13,6 @@ interface HistoryRepository : JpaRepository<CalculationHistory, Long> {
     @Query("SELECT ch FROM CalculationHistory ch WHERE ch.executor.username = :username")
     fun findAllByUsername(@Param("username") username: String): List<CalculationHistory>
 
+    fun findAllByExpressionLike(expression: String): List<CalculationHistory>
+
 }
