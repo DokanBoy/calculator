@@ -46,7 +46,7 @@ class ApiCalculatorController(
     }
 
     @ExceptionHandler(IllegalArgumentException::class)
-    fun handleException(e: IllegalArgumentException): ResponseEntity<String>? {
+    fun handleException(e: IllegalArgumentException): ResponseEntity<String> {
         return ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
     }
 
